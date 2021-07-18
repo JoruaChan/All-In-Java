@@ -159,6 +159,12 @@ public class BasicType {
 
 //        decimal2Binary4Float(-9.625f);
 
-        System.out.println(test());
+//        System.out.println(Runtime.getRuntime().availableProcessors());
+
+        int i = 10;
+        do {
+            i++;
+        } while (i == 15);
+        System.out.println(i);
     }
 }

@@ -7,4 +7,9 @@
     <groupId>cn.joruachan.study</groupId>
     <artifactId>study-primary</artifactId>
     <version>0.1.0</version>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+
 </project>

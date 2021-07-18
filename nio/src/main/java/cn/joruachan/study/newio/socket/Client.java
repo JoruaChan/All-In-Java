@@ -1,7 +1,9 @@
 package cn.joruachan.study.newio.socket;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 
 /**
@@ -30,6 +32,7 @@ public class Client {
 
     // 套接字Channel
     private SocketChannel socketChannel;
+    private volatile ByteBuffer buffer;
 
     public Client() throws IOException {
         SocketChannel socketChannel = SocketChannel.open();
@@ -62,6 +65,16 @@ public class Client {
     public synchronized void disconnect() throws IOException {
         this.socketChannel.close();
         this.state = STATE_DISCONNECT;
+    }
+
+    public void send(String message) throws UnsupportedEncodingException {
+        ByteBuffer buffer = this.buffer;
+        if (buffer == null) {
+            buffer = ByteBuffer.allocate(1024);
+        }
+
+        // 写入buffer
+        buffer.put(message.getBytes("UTF-8"));
     }
 
     public int getState() {
