@@ -5,15 +5,23 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cn.joruachan.study</groupId>
-    <artifactId>java-nio</artifactId>
+    <artifactId>netty</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
-    <name>java-nio</name>
-    <description>Study project for Java New IO</description>
+    <name>netty-study</name>
+    <description>Study project for Netty</description>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+            <version>4.1.66.Final</version>
+        </dependency>
+    </dependencies>
 
 </project>
