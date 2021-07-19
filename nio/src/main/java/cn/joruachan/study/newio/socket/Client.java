@@ -1,7 +1,6 @@
 package cn.joruachan.study.newio.socket;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
@@ -53,6 +52,7 @@ public class Client {
         while (!this.socketChannel.finishConnect()) {
             // 等待连接
             try {
+                System.out.println("链接未建立，请稍后");
                 Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -67,17 +67,29 @@ public class Client {
         this.state = STATE_DISCONNECT;
     }
 
-    public void send(String message) throws UnsupportedEncodingException {
+    public void send(String message) throws IOException {
         ByteBuffer buffer = this.buffer;
         if (buffer == null) {
-            buffer = ByteBuffer.allocate(1024);
+            this.buffer = buffer = ByteBuffer.allocate(1024);
         }
 
         // 写入buffer
         buffer.put(message.getBytes("UTF-8"));
+        buffer.flip();
+        this.socketChannel.write(buffer);
+
+        buffer.clear();
     }
 
     public int getState() {
         return state;
+    }
+
+    public static void main(String[] args) throws IOException {
+        Client client = new Client();
+        client.connect();
+
+        client.send("I am JoruaChan, Yeah!");
+        client.disconnect();
     }
 }
