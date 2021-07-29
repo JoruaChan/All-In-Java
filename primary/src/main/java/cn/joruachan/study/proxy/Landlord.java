@@ -11,7 +11,7 @@ public interface Landlord {
      *
      * @param message
      */
-    void sendMessage(String message);
+    void publish(String message);
 
     /**
      * 签订协议

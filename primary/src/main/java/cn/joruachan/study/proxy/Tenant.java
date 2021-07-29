@@ -3,6 +3,8 @@ package cn.joruachan.study.proxy;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 租客
@@ -11,16 +13,37 @@ import java.lang.reflect.Proxy;
  */
 public class Tenant {
 
+    /**
+     * 了解到的房子
+     */
+    private List<String> house = new ArrayList<>();
 
-
-
-    public static void main(String[] args) {
-        Proxy.newProxyInstance(Landlord.class.getClassLoader(),
-                Landlord.class.getInterfaces(), new InvocationHandler() {
+    public Landlord getAgent(Landlord landlord) {
+        return (Landlord) Proxy.newProxyInstance(landlord.getClass().getClassLoader(),
+                landlord.getClass().getInterfaces(), new InvocationHandler() {
                     @Override
                     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                        return null;
+                        System.out.println(method.getName());
+                        return method.invoke(landlord, args);
                     }
                 });
+    }
+
+    public static void main(String[] args) {
+        // 目标对象
+        Landlord landlord = new Landlord() {
+            @Override
+            public void publish(String message) {
+                System.out.println("message");
+            }
+
+            @Override
+            public void signAgreement() {
+                System.out.println("signAgreement");
+            }
+        };
+
+        Landlord agent = new Tenant().getAgent(landlord);
+        agent.publish("12343");
     }
 }
