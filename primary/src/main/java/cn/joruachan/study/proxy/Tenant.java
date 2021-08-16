@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -30,20 +31,33 @@ public class Tenant {
     }
 
     public static void main(String[] args) {
-        // 目标对象
-        Landlord landlord = new Landlord() {
-            @Override
-            public void publish(String message) {
-                System.out.println("message");
-            }
+//        // 目标对象
+//        Landlord landlord = new Landlord() {
+//            @Override
+//            public void publish(String message) {
+//                System.out.println("message");
+//            }
+//
+//            @Override
+//            public void signAgreement() {
+//                System.out.println("signAgreement");
+//            }
+//        };
+//
+//        Landlord agent = new Tenant().getAgent(landlord);
+//        agent.publish("12343");
 
-            @Override
-            public void signAgreement() {
-                System.out.println("signAgreement");
-            }
-        };
 
-        Landlord agent = new Tenant().getAgent(landlord);
-        agent.publish("12343");
+        List<Tenant> tenants = new ArrayList<>();
+        long timestamp = System.currentTimeMillis();
+        while (System.currentTimeMillis() - timestamp < 60000 && true) {
+            tenants.add(new Tenant());
+        }
+
+        Iterator<Tenant> iterator = tenants.iterator();
+        while (iterator.hasNext()) {
+            iterator.next();
+            iterator.remove();
+        }
     }
 }

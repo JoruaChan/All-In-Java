@@ -16,7 +16,8 @@ public class QuickSort {
     public static final void quickSort(int[] array, int left, int right) {
         if (left >= right) return;
 
-        // 将数组分成两个部分
+        // 将数组分成两个部分，这个时候pivot位置的是确定下来的！！！
+        // 因为左边比pivot小，右边比pivot大
         int pivot = partition(array, left, right);
 
         // 递归排序左序列
@@ -26,9 +27,9 @@ public class QuickSort {
     }
 
     /**
-     * 找到标准值的位置，从后往前找到比标准值小的，从前往后找比标准值大的
+     * 分段进行验证交换; 只要两个下标没有重叠就继续循环
      *
-     * @return
+     * @return 返回最终的基准值，左边小，右边大
      */
     public static final int partition(int[] array, int left, int right) {
         int pivot = array[left];
