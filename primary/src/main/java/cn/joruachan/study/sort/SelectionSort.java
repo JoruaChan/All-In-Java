@@ -8,7 +8,7 @@ package cn.joruachan.study.sort;
  */
 public class SelectionSort {
 
-    public static final int[] sort(int[] array) {
+    public static final void sort(int[] array) {
         for (int i = 0; i < array.length - 1; i++) {
             int minIndex = i;
 
@@ -27,13 +27,13 @@ public class SelectionSort {
                 array[minIndex] = temp;
             }
         }
-        return array;
     }
 
     public static void main(String[] args) {
         int[] array = new int[]{1343, 3234, 12121, 5212, 3533, 99, 1434, 100, 45, 12};
+        sort(array);
 
-        for (int num : sort(array)) {
+        for (int num : array) {
             System.out.println(num);
         }
     }

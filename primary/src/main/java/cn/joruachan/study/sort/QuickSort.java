@@ -8,9 +8,8 @@ package cn.joruachan.study.sort;
  */
 public class QuickSort {
 
-    public static final int[] sort(int[] array) {
+    public static final void sort(int[] array) {
         quickSort(array, 0, array.length - 1);
-        return array;
     }
 
     public static final void quickSort(int[] array, int left, int right) {
@@ -52,8 +51,9 @@ public class QuickSort {
 
     public static void main(String[] args) {
         int[] array = new int[]{1343, 3234, 100, 12121, 99, 5212, 3533, 99, 1434, 100, 45, 12};
+        sort(array);
 
-        for (int num : sort(array)) {
+        for (int num : array) {
             System.out.println(num);
         }
     }

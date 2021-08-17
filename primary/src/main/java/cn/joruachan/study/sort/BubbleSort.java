@@ -7,7 +7,7 @@ package cn.joruachan.study.sort;
  * @author JoruaChan
  */
 public class BubbleSort {
-    public static final int[] sort(int[] array) {
+    public static final void sort(int[] array) {
         // 记录最后的已经排好序的个数
         int sortedCount = 0;
 
@@ -23,8 +23,6 @@ public class BubbleSort {
 
             ++sortedCount;
         }
-
-        return array;
     }
 
     /**
@@ -33,7 +31,7 @@ public class BubbleSort {
      * @param array
      * @return
      */
-    public static final int[] betterSort(int[] array) {
+    public static final void betterSort(int[] array) {
         for (int i = array.length - 1; i > 0; i--) {
             for (int j = 0; j < i; j++) {
                 if (array[j] > array[j + 1]) {
@@ -43,13 +41,13 @@ public class BubbleSort {
                 }
             }
         }
-        return array;
     }
 
     public static void main(String[] args) {
         int[] array = new int[]{1343, 3234, 100, 12121, 99, 5212, 3533, 99, 1434, 100, 45, 12};
+        betterSort(array);
 
-        for (int num : betterSort(array)) {
+        for (int num : array) {
             System.out.println(num);
         }
     }
