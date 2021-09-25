@@ -5,7 +5,7 @@
 
     <!--    <context:annotation-config />-->
 
-    <bean id="repository" class="cn.joruachan.study.springcontext.bean.Repository"></bean>
+    <bean id="repository" class="cn.joruachan.study.springcontext.bean.Repository"/>
     <bean class="cn.joruachan.study.springcontext.bean.Service">
         <constructor-arg index="0" ref="repository"/>
         <!--        <property name="repository" ref="repository" />-->

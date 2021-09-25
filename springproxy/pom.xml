@@ -11,18 +11,7 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>zookeeper</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-
-    <name>zookeeper</name>
-    <description>Study project for ZooKeeper</description>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.curator</groupId>
-            <artifactId>curator-framework</artifactId>
-            <version>4.3.0</version>
-        </dependency>
-    </dependencies>
+    <artifactId>springproxy</artifactId>
+    <version>1.0-SNAPSHOT</version>
 
 </project>
