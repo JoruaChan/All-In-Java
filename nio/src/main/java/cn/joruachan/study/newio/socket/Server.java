@@ -25,8 +25,7 @@ public class Server {
     private ServerSocketChannel socketChannel;
 
     public Server() throws IOException {
-        Selector selector = Selector.open();
-        this.selector = selector;
+        this.selector = Selector.open();
     }
 
     public void listen() throws IOException {

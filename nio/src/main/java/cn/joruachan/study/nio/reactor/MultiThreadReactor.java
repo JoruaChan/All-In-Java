@@ -1,4 +1,4 @@
-package cn.joruachan.study.reactor;
+package cn.joruachan.study.nio.reactor;
 
 /**
  * 多线程主从reactor模式<br>

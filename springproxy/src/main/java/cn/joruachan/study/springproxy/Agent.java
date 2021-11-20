@@ -1,6 +1,5 @@
 package cn.joruachan.study.springproxy;
 
-import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -20,7 +19,7 @@ public class Agent {
     }
 
     @Before("pointCut()")
-    public void around(){
+    public void before(){
         System.out.println("我是房东的代理，我是要收取费用的哦！");
     }
 }
