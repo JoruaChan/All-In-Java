@@ -1,9 +1,14 @@
 package cn.joruachan.study.cs.bio;
 
+import cn.joruachan.study.cs.TimeDefaultClient;
+
 import java.util.concurrent.CountDownLatch;
 
 /**
- * BIO C/S <br>
+ * 阻塞IO模式 C/S <br>
+ * <p>
+ * 请求数:线程数=1:1，资源有限
+ * <p>
  * 一般性情况下, 要注意：
  * <ul>
  *     <li> Client发送的数据量并不能确定；</li>
@@ -17,14 +22,13 @@ import java.util.concurrent.CountDownLatch;
 public class TimeBioMain {
     public static void main(String[] args) {
         TimeBioServer server = new TimeBioServer();
-        new Thread(() -> {
-            server.start(8080);
-        }).start();
+        server.start(8080);
 
-        CountDownLatch countDownLatch = new CountDownLatch(4);
-        for (int i = 0; i < 4; i++) {
+        int clientCount = 4;
+        CountDownLatch countDownLatch = new CountDownLatch(clientCount);
+        for (int i = 0; i < clientCount; i++) {
             new Thread(() -> {
-                TimeBioClient.newInstance(8080).start();
+                TimeDefaultClient.newInstance(8080).start();
 
                 countDownLatch.countDown();
             }, "thread-" + (i + 1))

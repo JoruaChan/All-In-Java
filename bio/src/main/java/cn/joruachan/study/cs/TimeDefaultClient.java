@@ -1,9 +1,8 @@
-package cn.joruachan.study.cs.bio;
+package cn.joruachan.study.cs;
 
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
 
 /**
  * BIO Client<br>
@@ -11,15 +10,15 @@ import java.nio.charset.StandardCharsets;
  *
  * @author JoruaChan
  */
-public class TimeBioClient {
+public class TimeDefaultClient {
 
-    public static TimeBioClient newInstance(int remotePort) {
-        return new TimeBioClient(remotePort);
+    public static TimeDefaultClient newInstance(int remotePort) {
+        return new TimeDefaultClient(remotePort);
     }
 
     private int remotePort;
 
-    public TimeBioClient(int remotePort) {
+    public TimeDefaultClient(int remotePort) {
         this.remotePort = remotePort;
     }
 
@@ -40,18 +39,14 @@ public class TimeBioClient {
             for (int i = 0; i < count; i++) {
                 String sendMsg = "";
                 if (i % 3 != 0) {
-                    sendMsg = TimeBioServer.QUESTION + ", ";
+                    sendMsg = TimeServerDefaultHandler.QUESTION + ", ";
                 }
                 sendMsg += ("I am Client No." + i + ", " + Thread.currentThread().getName());
                 writer.println(sendMsg);
             }
 
-            while (true) {
-                String line = reader.readLine();
-                if (line == null) break;
-
-                System.out.println("Client has received message: " + line);
-            }
+            String line = reader.readLine();
+            System.out.println("Client has received message: " + line);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
