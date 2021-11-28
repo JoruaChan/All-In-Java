@@ -37,7 +37,7 @@ public class FakeAioTimeServer {
             serverSocket.setSoTimeout(6000);
 
             executor = new ThreadPoolExecutor(core, max,
-                    60L, TimeUnit.SECONDS,
+                    5L, TimeUnit.SECONDS,
                     new LinkedBlockingQueue<>(queueLength));
 
             new Thread(() -> new Acceptor().accept()).start();

@@ -1,4 +1,4 @@
-package cn.joruachan.study.nio.reactor;
+package cn.joruachan.study.reactor;
 
 import java.io.IOException;
 import java.nio.channels.*;

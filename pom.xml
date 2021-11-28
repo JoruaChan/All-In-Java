@@ -19,7 +19,7 @@
 
     <modules>
         <module>primary</module>
-        <module>nio</module>
+        <module>java-io</module>
         <module>netty</module>
         <module>springboot</module>
         <module>springcloud</module>
@@ -27,7 +27,6 @@
         <module>springproxy</module>
         <module>disruptor</module>
         <module>zookeeper</module>
-        <module>bio</module>
     </modules>
 
     <dependencyManagement>
