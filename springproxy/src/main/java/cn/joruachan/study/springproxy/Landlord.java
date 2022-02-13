@@ -8,7 +8,7 @@ import java.io.Serializable;
  *
  * @author JoruaChan
  */
-public class Landlord {
+public class Landlord implements Serializable{
     public void sell(){
         System.out.println("我是："+ this.getClass().getSimpleName() +", 开始卖房子啦～");
     }

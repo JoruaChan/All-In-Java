@@ -23,7 +23,9 @@ public class SpringContext {
         Landlord landlord = applicationContext.getBean(Landlord.class);
         landlord.sell();
 
-//        printBeans(applicationContext);
+        // 只要类实现了接口（Serializable不行），就会使用
+        JdkProxyTestImpl iTest = (JdkProxyTestImpl) applicationContext.getBean("iProxy");
+        iTest.test();
     }
 
     public static void printBeans(ApplicationContext ac) {

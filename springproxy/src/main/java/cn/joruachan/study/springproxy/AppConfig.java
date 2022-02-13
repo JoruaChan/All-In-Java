@@ -17,13 +17,17 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 public class AppConfig {
 
     @Bean
-    public Landlord landlord(){
+    public Landlord landlord() {
         return new Landlord();
     }
 
     @Bean
-    public Agent agent(){
+    public Agent agent() {
         return new Agent();
     }
 
+    @Bean
+    public JdkProxyTestImpl iProxy() {
+        return new JdkProxyTestImpl();
+    }
 }

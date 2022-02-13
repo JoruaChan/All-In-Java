@@ -1,5 +1,6 @@
 package cn.joruachan.study.springproxy;
 
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
@@ -15,11 +16,20 @@ import org.aspectj.lang.annotation.Pointcut;
 public class Agent {
 
     @Pointcut("execution(* cn.joruachan.study.springproxy.Landlord.*(..))")
-    public void pointCut() {
+    public void pointCut1() {
     }
 
-    @Before("pointCut()")
+    @Before("pointCut1()")
     public void before(){
-        System.out.println("我是房东的代理，我是要收取费用的哦！");
+        System.out.println("代理执行前.....");
+    }
+
+    @Pointcut("execution(* cn.joruachan.study.springproxy.JdkProxyTestImpl.*(..))")
+    public void pointCut2() {
+    }
+
+    @After("pointCut2()")
+    public void after(){
+        System.out.println("代理执行后.......");
     }
 }
