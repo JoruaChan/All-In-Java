@@ -23,7 +23,7 @@ public class SpringContext {
         Landlord landlord = applicationContext.getBean(Landlord.class);
         landlord.sell();
 
-        // 只要类实现了接口（Serializable不行），就会使用
+        /********** 只要类实现了接口（Serializable不行），就会使用Jdk代理 ***********/
         JdkProxyTestImpl iTest = (JdkProxyTestImpl) applicationContext.getBean("iProxy");
         iTest.test();
     }
