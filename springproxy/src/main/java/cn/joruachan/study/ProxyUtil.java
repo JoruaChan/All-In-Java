@@ -45,7 +45,6 @@ public class ProxyUtil {
                 throw new IllegalArgumentException("Jdk代理对象无InvocationHandler!");
             }
 
-
             if (!(invocationHandler instanceof AopProxy)) {
                 throw new IllegalArgumentException("Jdk代理对象无InvocationHandler!");
             }
