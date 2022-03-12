@@ -1,6 +1,10 @@
 package cn.joruachan.study.springproxy;
 
 import cn.joruachan.study.ProxyUtil;
+import cn.joruachan.study.springproxy.jdk.BeDepend;
+import cn.joruachan.study.springproxy.jdk.EmptyBeProxied;
+import cn.joruachan.study.springproxy.jdk.IProxy;
+import cn.joruachan.study.springproxy.jdk.IProxy1;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -16,23 +20,37 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class SpringContext {
 
     public static void main(String[] args) {
+        System.setProperty("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
+
+        final String basePackage = "cn.joruachan.study.springproxy";
         AnnotationConfigApplicationContext applicationContext =
-                new AnnotationConfigApplicationContext(AppConfig.class);
+                new AnnotationConfigApplicationContext(basePackage);
 
         printBeans(applicationContext);
 
-        Landlord landlord = applicationContext.getBean(Landlord.class);
-        landlord.sell();
+        // 没有方法的接口被代理
+        EmptyBeProxied emptyBeProxied =
+                (EmptyBeProxied) applicationContext.getBean("emptyBeProxied");
+        System.out.println(emptyBeProxied);
 
-        /********** 只要类实现了接口（Serializable不行），就会使用Jdk代理 ***********/
-        // 代理类实际是Proxy子类，不能强转成自己的类
-        // 错误：JdkProxyTestImpl iTest = (JdkProxyTestImpl) applicationContext.getBean("iProxy");
-        IJdkProxyTest iTest = (IJdkProxyTest) applicationContext.getBean("iProxy");
-        iTest.test();
+        // 正常Jdk代理，代理接口方法
+        // 非接口方法，代理不了！
+        Object beProxied = applicationContext.getBean("beProxied");
+        ((IProxy) beProxied).execute();
 
+        // 获取被代理的对象!
+        System.out.println(ProxyUtil.targetFromSpringJdkProxy(beProxied));
 
-        Object proxy = applicationContext.getBean("iProxy");
-        System.out.println(ProxyUtil.targetFromSpringJdkProxy(proxy));
+        // 由于被代理的类在IOC容器中是Proxy类型，所以不能直接使用实现类Autowired注入到其他类中；
+        BeDepend beDepend = (BeDepend) applicationContext.getBean("beDepend");
+        beDepend.depend();
+
+        // 如果同一个类中调用被拦截的方法，也是拦截不到的
+        IProxy innerCall = (IProxy) applicationContext.getBean("innerCall");
+        innerCall.execute();
+
+        // 如果只拦截部分接口方法，对生成代理类无影响。
+        // 只不过在InvocationHandle调用时，会判断需不需要执行Advice织入的代码；
     }
 
     public static void printBeans(ApplicationContext ac) {

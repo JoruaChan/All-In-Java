@@ -1,7 +1,9 @@
 package cn.joruachan.study.springproxy;
 
+import cn.joruachan.study.springproxy.jdk.BeProxied;
+import cn.joruachan.study.springproxy.jdk.EmptyBeProxied;
+import cn.joruachan.study.springproxy.jdk.InnerCall;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
@@ -12,22 +14,21 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
  * @author JoruaChan
  */
 @Configuration
-@EnableAspectJAutoProxy
-@ComponentScan(basePackages = "cn.joruachan.study.springproxy")
+@EnableAspectJAutoProxy(exposeProxy = true)
 public class AppConfig {
 
-    @Bean
-    public Landlord landlord() {
-        return new Landlord();
+    @Bean(name = "emptyBeProxied")
+    public EmptyBeProxied emptyBeProxied() {
+        return new EmptyBeProxied();
     }
 
-    @Bean
-    public Agent agent() {
-        return new Agent();
+    @Bean(name = "beProxied")
+    public BeProxied beProxied(){
+        return new BeProxied();
     }
 
-    @Bean
-    public JdkProxyTestImpl iProxy() {
-        return new JdkProxyTestImpl();
+    @Bean(name = "innerCall")
+    public InnerCall innerCall(){
+        return new InnerCall();
     }
 }
