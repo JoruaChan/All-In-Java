@@ -1,6 +1,8 @@
 package cn.joruachan.study.springproxy;
 
 import cn.joruachan.study.ProxyUtil;
+import cn.joruachan.study.springproxy.introduction.MixInAdvisor;
+import cn.joruachan.study.springproxy.introduction.MixInLock;
 import cn.joruachan.study.springproxy.jdk.BeDepend;
 import cn.joruachan.study.springproxy.jdk.EmptyBeProxied;
 import cn.joruachan.study.springproxy.jdk.IProxy;
@@ -28,10 +30,22 @@ public class SpringContext {
 
         printBeans(applicationContext);
 
-        // 没有方法的接口被代理
-        EmptyBeProxied emptyBeProxied =
-                (EmptyBeProxied) applicationContext.getBean("emptyBeProxied");
-        System.out.println(emptyBeProxied);
+        MixInAdvisor mixInAdvisor = (MixInAdvisor) applicationContext.getBean("mixInAdvisor");
+        MixInLock mixInLock = (MixInLock) mixInAdvisor.getAdvice();
+        // 上锁
+        mixInLock.lock();
+
+        try {
+            // 没有方法的接口被代理
+            EmptyBeProxied emptyBeProxied =
+                    (EmptyBeProxied) applicationContext.getBean("emptyBeProxied");
+            System.out.println(emptyBeProxied);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // 再解锁
+        mixInLock.unlock();
 
         // 正常Jdk代理，代理接口方法
         // 非接口方法，代理不了！
