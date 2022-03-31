@@ -6,7 +6,8 @@ import cn.joruachan.study.springproxy.introduction.MixInLock;
 import cn.joruachan.study.springproxy.jdk.BeDepend;
 import cn.joruachan.study.springproxy.jdk.EmptyBeProxied;
 import cn.joruachan.study.springproxy.jdk.IProxy;
-import cn.joruachan.study.springproxy.jdk.IProxy1;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -20,6 +21,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  * @author JoruaChan
  */
 public class SpringContext {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(SpringContext.class);
 
     public static void main(String[] args) {
         System.setProperty("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
@@ -39,13 +42,20 @@ public class SpringContext {
             // 没有方法的接口被代理
             EmptyBeProxied emptyBeProxied =
                     (EmptyBeProxied) applicationContext.getBean("emptyBeProxied");
-            System.out.println(emptyBeProxied);
+            LOGGER.info("空代理:{}", emptyBeProxied);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         // 再解锁
         mixInLock.unlock();
+
+        // ProxyFactoryBean
+        Object proxyFactoryBean1 = applicationContext.getBean("codingProxyFactory");
+        Object proxyFactoryBean2 = applicationContext.getBean("codingProxyFactory");
+        Object proxyFactoryBean3 = applicationContext.getBean("codingProxyFactory");
+        LOGGER.info("CodingProxyFactory, create proxy, 1:{}, 2:{}, 3:{}",
+                proxyFactoryBean1, proxyFactoryBean2, proxyFactoryBean3);
 
         // 正常Jdk代理，代理接口方法
         // 非接口方法，代理不了！
@@ -68,11 +78,11 @@ public class SpringContext {
     }
 
     public static void printBeans(ApplicationContext ac) {
+        LOGGER.info("\n\n\n------------------ PrintBeans Start ------------------------\n\n\n");
         for (String beanDefinitionName : ac.getBeanDefinitionNames()) {
-            System.out.println("beanDefinitionName:" + beanDefinitionName);
-            System.out.println("class:" + ac.getBean(beanDefinitionName).getClass());
-            System.out.println("--------------------------------");
+            LOGGER.info("bean:{}, actual class:{}\n", beanDefinitionName, ac.getBean(beanDefinitionName).getClass());
         }
+        LOGGER.info("\n\n\n------------------ PrintBeans End ------------------------\n\n\n");
     }
 
 }
