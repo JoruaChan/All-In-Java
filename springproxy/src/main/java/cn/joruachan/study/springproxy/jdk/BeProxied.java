@@ -1,14 +1,19 @@
 package cn.joruachan.study.springproxy.jdk;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * 接口代理
  *
  * @author JoruaChan
  */
 public class BeProxied implements IProxy {
+    private static final Logger LOGGER = LoggerFactory.getLogger(BeProxied.class);
+
     @Override
     public void execute() {
-        System.out.println("BeProxied#execute");
+        LOGGER.info("BeProxied#execute");
     }
 
     /**
@@ -17,6 +22,6 @@ public class BeProxied implements IProxy {
      * 就算是指定拦截这个方法，由于不会生成该代理方法，所以依旧执行不到！！
      */
     public void other() {
-        System.out.println("BeProxied#other");
+        LOGGER.info("BeProxied#other");
     }
 }

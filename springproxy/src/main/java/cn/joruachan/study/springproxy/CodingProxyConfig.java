@@ -36,6 +36,7 @@ public class CodingProxyConfig {
         ProxyFactoryBean proxyFactoryBean = new ProxyFactoryBean();
 
         // 指定方法拦截的Advice、Interceptors
+        // 如果指定后缀带*,则会在全局Advisor、Interceptor中找出符合名称的，并添加到拦截链上
         proxyFactoryBean.setInterceptorNames("codingBeforeAdvice");
 
         // 指定代理对象
@@ -45,7 +46,7 @@ public class CodingProxyConfig {
         proxyFactoryBean.setProxyInterfaces(BeProxied.class.getInterfaces());
 
         // 是否单例
-        proxyFactoryBean.setSingleton(false);
+        proxyFactoryBean.setSingleton(true);
 
         return proxyFactoryBean;
     }
