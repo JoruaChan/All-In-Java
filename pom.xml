@@ -32,6 +32,7 @@
         <module>common</module>
         <module>okhttp</module>
         <module>rocketmq</module>
+        <module>springweb</module>
     </modules>
 
     <dependencies>
