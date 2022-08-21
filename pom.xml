@@ -30,6 +30,8 @@
         <module>kafka</module>
         <module>log</module>
         <module>common</module>
+        <module>okhttp</module>
+        <module>rocketmq</module>
     </modules>
 
     <dependencies>
