@@ -11,4 +11,7 @@
         <!--        <property name="repository" ref="repository" />-->
     </bean>
 
+    <bean id="myLifecycle" class="cn.joruachan.study.springcontext.lifecycle.MyLifecycle" />
+    <bean id="mySmartLifecycle" class="cn.joruachan.study.springcontext.lifecycle.MySmartLifecycle" />
+
 </beans>
