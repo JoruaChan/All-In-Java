@@ -12,8 +12,9 @@ import org.springframework.stereotype.Component;
  *
  * @author JoruaChan
  */
-@Component
-@RocketMQMessageListener(topic = "real_topic", consumerGroup = "push_consumer", selectorType = SelectorType.TAG, selectorExpression = "real_tag", messageModel = MessageModel.CLUSTERING)
+//@Component
+//@RocketMQMessageListener(topic = "real_topic", consumerGroup = "push_consumer",
+//        selectorType = SelectorType.TAG, selectorExpression = "real_tag", messageModel = MessageModel.CLUSTERING)
 public class MessageListener implements RocketMQListener<String> {
 
     @Override

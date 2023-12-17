@@ -5,11 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.ProtocolResolver;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
-
-import java.util.ServiceLoader;
 
 
 @SpringBootApplication
@@ -30,7 +27,7 @@ public class StudySpringbootApplication {
 
         @Override
         public void setResourceLoader(ResourceLoader resourceLoader) {
-            if (resourceLoader instanceof DefaultResourceLoader){
+            if (resourceLoader instanceof DefaultResourceLoader) {
                 ((DefaultResourceLoader) resourceLoader).addProtocolResolver(new MyProtocolResolver());
             }
         }

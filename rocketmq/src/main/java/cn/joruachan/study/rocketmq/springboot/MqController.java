@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * 文件说明<br>
@@ -26,7 +30,11 @@ public class MqController {
 
     @PostMapping("/send")
     public SendResult sendMessage(String topic, String tag) throws MQBrokerException, RemotingException, InterruptedException, MQClientException {
-        String str = "Topic: " + topic + ",TAG: " + tag + ", Time is: " + System.currentTimeMillis();
+        ZonedDateTime zonedDateTime = LocalDateTime.now().atZone(ZoneId.of("Asia/Shanghai"));
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("MM-dd HH:mm:ss");
+        String dateTimeStr = timeFormatter.format(zonedDateTime);
+
+        String str = "Topic: " + topic + ",TAG: " + tag + ", Time is: " + dateTimeStr;
         Message message = new Message(topic, tag, str.getBytes(StandardCharsets.UTF_8));
         SendResult sendResult = producer.send(message);
         return sendResult;
